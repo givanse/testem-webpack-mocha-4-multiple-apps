@@ -1,0 +1,18 @@
+{
+  "before_tests": "webpack",
+  "browser_args": {
+    "Chrome": [
+      "--auto-open-devtools-for-tabs"
+    ]
+  },
+  "framework": "mocha+chai",
+  "launch_in_ci": ["Chrome"],
+  "launch_in_dev": ["Chrome", "Node"],
+  "launchers": {
+    "Node": {
+      "command": "mocha hello-world/test"
+    }
+  },
+  "serve_files": "hello-world/dist/test-bundle.js",
+  "test_page": "test.html"
+}

@@ -1,0 +1,10 @@
+--recursive
+--bail
+--sort
+--grep .*
+--full-trace
+--no-timeouts
+--ui bdd
+--colors
+--exit
+--reporter nyan
