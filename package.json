@@ -1,15 +1,23 @@
 {
+  "private": true,
+  "workspaces": [
+    "hello-world"
+  ],
   "name": "testem-multiple-apps",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "testem",
+    "test-ci": "testem ci",
     "build": "webpack"
   },
   "author": "givanse",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.52",
+    "@babel/preset-env": "^7.0.0-beta.52",
+    "babel-loader": "^8.0.0-beta.4",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "testem": "^2.8.2",

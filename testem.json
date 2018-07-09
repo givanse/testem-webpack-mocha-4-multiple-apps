@@ -10,7 +10,7 @@
   "launch_in_dev": ["Chrome", "Node"],
   "launchers": {
     "Node": {
-      "command": "mocha hello-world/test"
+      "command": "mocha --compilers js:babel-core/register hello-world/test"
     }
   },
   "serve_files": "hello-world/dist/test-bundle.js",

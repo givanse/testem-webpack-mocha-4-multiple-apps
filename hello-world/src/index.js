@@ -1,9 +1,6 @@
-function helloWorld() {
+import capitalize from 'lodash.capitalize';
+
+export default function helloWorld() {
   const msg = 'hello world';
-  console.log(msg);
-  return msg;
-};
-
-helloWorld();
-
-module.exports = helloWorld;
+  return capitalize(msg);
+}
