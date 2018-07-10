@@ -1,12 +1,18 @@
 const webpack = require('webpack');
 const Testem = require('testem');
 
+const WORKSPACE_ROOT = `${__dirname}/..`;
+
+/**
+ * Functions 
+ */
+
 function getWebpackConfig(moduleName) {
   const webpackConfig = require('./configs/webpack.config.js');
 
-  webpackConfig.context = `${__dirname}/${moduleName}`;
-  webpackConfig.entry = `${__dirname}/${moduleName}/test/index.js`;
-  webpackConfig.output.path = `${__dirname}/${moduleName}/dist`;
+  webpackConfig.context = `${WORKSPACE_ROOT}/${moduleName}`;
+  webpackConfig.entry = `${WORKSPACE_ROOT}/${moduleName}/test/index.js`;
+  webpackConfig.output.path = `${WORKSPACE_ROOT}/${moduleName}/dist`;
 
   return webpackConfig;
 }
@@ -38,12 +44,12 @@ async function compileWatch(webpackConfig) {
   });
 }
 
-function addModuleToTestemConfig(moduleName, testemConfig) {
+function addModuleInfoToTestemConfig(moduleName, testemConfig) {
   testemConfig.serve_files = testemConfig.serve_files || [];
   testemConfig.test_page = testemConfig.test_page || [];
 
-  testemConfig.serve_files.push(`./${moduleName}/dist/test-bundle.js`);
-  testemConfig.test_page.push(`./test.html?name=${moduleName}`);
+  testemConfig.serve_files.push(`${moduleName}/dist/test-bundle.js`);
+  testemConfig.test_page.push(`run-tests/test.html?name=${moduleName}`);
 
   return testemConfig;
 }
@@ -56,24 +62,26 @@ async function prepModules(moduleNames) {
   for (moduleName of moduleNames) {
     const webpackConfig = getWebpackConfig(moduleName);
     compilePromises.push(compileWatch(webpackConfig));
-    addModuleToTestemConfig(moduleName, testemConfig);
+    addModuleInfoToTestemConfig(moduleName, testemConfig);
   }
 
   return Promise.all(compilePromises).then(() => testemConfig);
 }
 
-async function startCI(moduleNames) {
-  const t = new Testem();
+async function start(moduleNames) {
+  const testem = new Testem();
   const testemConfig = await prepModules(moduleNames);
 
   return new Promise(function(resolve) {
-    t.startCI(testemConfig, resolve);
+    console.log(`Testem CWD: \`${testemConfig.cwd}\``);
+    testem.startCI(testemConfig, resolve);
+    //testem.startDev(testemConfig, resolve);
   });
 }
 
 const moduleNames = ['hello-world', 'hello-star'];
 
-startCI(moduleNames)
+start(moduleNames)
 .then(() => {
   process.exit(0);
 });

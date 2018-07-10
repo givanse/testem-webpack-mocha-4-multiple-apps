@@ -10,7 +10,7 @@
       "protocol": "inspector",
       "name": "run tests",
       "runtimeExecutable": "/Users/gsilvae/.nvm/versions/node/v8.11.2/bin/node",
-      "program": "${workspaceFolder}/run-tests.js",
+      "program": "${workspaceFolder}/run-tests/index.js",
       "outputCapture": "std",
     }
   ]
