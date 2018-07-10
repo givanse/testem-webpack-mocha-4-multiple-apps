@@ -1,11 +1,11 @@
 module.exports = {
-  entry: './hello-world/test/index.test.js',
+  entry: null, // set programatically 
   mode: 'development',
   node: {
       fs: 'empty'
   },
   output: {
-    path: __dirname + '/hello-world/dist',
+    path: null, // set programatically 
     filename: 'test-bundle.js'
   },
   module: {

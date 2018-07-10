@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "testem",
-    "test-ci": "testem ci",
+    "test-ci": "testem ci --parallel 3",
     "build": "webpack"
   },
   "author": "givanse",

@@ -7,14 +7,23 @@
   <body>
     <div id="mocha"></div>
     <script src="node_modules/mocha/mocha.js"></script>
-    <!--script src="node_modules/chai/chai.js"></script-->
-    <script>mocha.setup('bdd')</script>
+    <script>mocha.setup("bdd")</script>
 
     <script src="/testem.js"></script>
-    <script src="hello-world/dist/test-bundle.js"></script>
 
     <script>
-      mocha.run();
+      const moduleName = window.location.search.match(/=(.*$)/)[1];
+
+      const s = document.createElement("script");
+      const url = `/${moduleName}/dist/test-bundle.js`;
+      s.setAttribute("src", url);
+
+      s.onload = function() {
+        mocha.run();
+      };
+
+      document.body.appendChild(s);
     </script>
+
   </body>
 </html>

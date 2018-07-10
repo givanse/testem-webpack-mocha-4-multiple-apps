@@ -1,5 +1,5 @@
 {
-  "name": "hello-world",
+  "name": "hello-star",
   "private": true,
   "version": "1.0.0",
   "description": "",
@@ -12,6 +12,6 @@
   "author": "givanse",
   "license": "MIT",
   "dependencies": {
-    "lodash.capitalize": "4.2.1"
+    "lodash.capitalize": "3.0.0"
   }
 }
