@@ -3,11 +3,11 @@ const testemConfig = require('./configs/testem.config.js');
 testemConfig.serve_files = testemConfig.serve_files || [];
 testemConfig.test_page = testemConfig.test_page || [];
 
-module.exports = function getTestemConfig(moduleNames) {
+module.exports = function getTestemConfig(modulesPorts) {
 
-  for (moduleName of moduleNames) {
+  for (const {moduleName, port} of modulesPorts) {
     testemConfig.serve_files.push(`${moduleName}/dist/test-bundle.js`);
-    testemConfig.test_page.push(`run-tests/test.html?name=${moduleName}`);
+    testemConfig.test_page.push(`run-tests/test.html?name=${moduleName}&port=${port}`);
   }
 
   return testemConfig;

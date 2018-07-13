@@ -12,14 +12,13 @@
     <script src="/testem.js"></script>
 
     <script>
-      const moduleName = window.location.search.match(/=(.*$)/)[1];
-
-      if (!moduleName) {
-        throw new Error('No moduleName found in the query string.');
+      const port = window.location.search.match(/port=(\d*)/)[1];
+      if (!port) {
+        throw new Error('No port found in the query string.');
       }
 
       const s = document.createElement("script");
-      const url = `/${moduleName}/dist/test-bundle.js`;
+      const url = `http://localhost:${port}/test-bundle.js`;
       s.setAttribute("src", url);
 
       s.onload = function() {
