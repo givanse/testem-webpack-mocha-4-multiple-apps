@@ -10,10 +10,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "testem",
-    "test-ci": "testem ci --parallel 3",
-    "build": "webpack"
+    "test": "node run-tests"
   },
   "author": "givanse",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "testem-nyan-reporter": "^0.0.3"
+  }
 }

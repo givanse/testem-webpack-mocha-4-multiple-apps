@@ -6,7 +6,7 @@ module.exports = {
       '--auto-open-devtools-for-tabs'
     ]
   },
-  cwd: path.join(`${__dirname}/../..`),
+  cwd: path.join(`${__dirname}/..`),
   launch_in_dev: ['Chrome'],
   launch_in_ci: ['Chrome'],
   parallel: -1,
