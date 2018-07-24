@@ -1,4 +1,5 @@
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const WORKSPACE_ROOT = path.resolve(`${__dirname}/..`);
 
@@ -9,8 +10,8 @@ module.exports = {
       fs: 'empty'
   },
   output: {
-    filename: '[name].js',
-    path: path.resolve(`${WORKSPACE_ROOT}/dist`),
+    filename: '[name]/[name].bundle.js',
+    path: WORKSPACE_ROOT,
   },
   module: {
     rules: [
@@ -26,4 +27,18 @@ module.exports = {
       }
     ]
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      },
+    },
+  },
+  /*plugins: [
+    new BundleAnalyzerPlugin()
+  ]*/
 };

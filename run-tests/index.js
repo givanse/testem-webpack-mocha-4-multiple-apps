@@ -10,8 +10,8 @@ async function start(moduleNames) {
   return new Promise(function(resolve) {
     console.log(`Testem CWD: \`${testemConfig.cwd}\``);
     const testem = new Testem();
-    //testem.startCI(testemConfig, resolve);
-    testem.startDev(testemConfig, resolve);
+    testem.startCI(testemConfig, resolve);
+    //testem.startDev(testemConfig, resolve);
   });
 }
 
