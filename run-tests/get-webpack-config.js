@@ -1,11 +1,22 @@
-const WORKSPACE_ROOT = `${__dirname}/..`;
+const path = require('path');
+const WORKSPACE_ROOT = path.resolve(`${__dirname}/..`);
 
-module.exports = function getWebpackConfig(moduleName) {
-  const webpackConfig = require('./webpack.config.js');
+const WEBPACK_CONFIG = require('./webpack.config.js');
 
-  webpackConfig.context = `${WORKSPACE_ROOT}/${moduleName}`;
-  webpackConfig.entry = [`${WORKSPACE_ROOT}/${moduleName}/test/index.js`];
-  webpackConfig.output.path = `${WORKSPACE_ROOT}/${moduleName}/dist`;
+function addModuleConfig(moduleName) {
+  const entryPath = path.resolve(`${WORKSPACE_ROOT}/${moduleName}/test/index.js`);
+  WEBPACK_CONFIG.entry[moduleName] = entryPath;
+}
 
-  return webpackConfig;
+module.exports = function build(moduleNames) {
+
+  WEBPACK_CONFIG.context = WORKSPACE_ROOT;
+  WEBPACK_CONFIG.entry = {};
+  WEBPACK_CONFIG.output.path = `${WORKSPACE_ROOT}/dist`;
+
+  for (moduleName of moduleNames) {
+    addModuleConfig(moduleName);
+  }
+
+  return WEBPACK_CONFIG;
 }

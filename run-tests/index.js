@@ -1,19 +1,17 @@
 const Testem = require('testem');
-const build = require('./build');
+const webpackServeStart = require('./webpack-serve-start');
 const getTestemConfig = require('./get-testem-config');
 
 async function start(moduleNames) {
-  const result = await build(moduleNames);
+  const bundlesURLs = await webpackServeStart(moduleNames);
 
-  const testemConfig = getTestemConfig(result.modulesPorts);
-
-  testemConfig.serve_files = result.bundlesUrls;
+  const testemConfig = getTestemConfig(moduleNames, bundlesURLs);
 
   return new Promise(function(resolve) {
     console.log(`Testem CWD: \`${testemConfig.cwd}\``);
     const testem = new Testem();
-    testem.startCI(testemConfig, resolve);
-    //testem.startDev(testemConfig, resolve);
+    //testem.startCI(testemConfig, resolve);
+    testem.startDev(testemConfig, resolve);
   });
 }
 

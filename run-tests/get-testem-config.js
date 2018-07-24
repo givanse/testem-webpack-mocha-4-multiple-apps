@@ -1,15 +1,16 @@
 const testemConfig = require('./testem.config.js');
 const NyanReporter = require('testem-nyan-reporter');
+const path = require('path');
 
-testemConfig.serve_files = testemConfig.serve_files || [];
-testemConfig.test_page = testemConfig.test_page || [];
 
-module.exports = function getTestemConfig(modulesPorts) {
+module.exports = function getTestemConfig(moduleNames, bundlesURLs) {
 
-  for (const {moduleName, port} of modulesPorts) {
-    testemConfig.serve_files.push(`${moduleName}/dist/test-bundle.js`);
-    testemConfig.test_page.push(`run-tests/test.html?name=${moduleName}&port=${port}`);
-  }
+  testemConfig.serve_files = bundlesURLs;
+
+  const names = moduleNames.join(',');
+
+  // relative path to the Testem server root
+  testemConfig.test_page = `run-tests/test.html?moduleNames=${names}`;
 
   testemConfig.reporter = new NyanReporter();
 

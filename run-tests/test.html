@@ -12,20 +12,37 @@
     <script src="/testem.js"></script>
 
     <script>
-      const port = window.location.search.match(/port=(\d*)/)[1];
-      if (!port) {
-        throw new Error('No port found in the query string.');
+      const moduleNames = window.location.search.match(/moduleNames=(.*)$/)[1];
+      if (!moduleNames) {
+        throw new Error('No moduleNames found in the query string.');
       }
 
-      const s = document.createElement("script");
-      const url = `http://localhost:${port}/test-bundle.js`;
-      s.setAttribute("src", url);
+      function onloadPromise(script) {
+        return new Promise(function(resolve) {
+          script.onload = function() {
+            resolve();
+          };
+        });
+      }
 
-      s.onload = function() {
+      function addScript(moduleName) {
+        const script = document.createElement("script");
+        const url = `http://localhost:9090/${moduleName}.js`;
+        script.setAttribute("src", url);
+
+        document.body.appendChild(script);
+
+        return onloadPromise(script);
+      }
+
+      const promises = [];
+      for (const moduleName of moduleNames.split(',')) {
+        promises.push(addScript(moduleName));
+      }
+
+      Promise.all(promises).then(function() {
         mocha.run();
-      };
-
-      document.body.appendChild(s);
+      });
     </script>
 
   </body>

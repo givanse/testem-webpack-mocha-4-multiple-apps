@@ -1,3 +1,7 @@
+const path = require('path');
+
+const WORKSPACE_ROOT = path.resolve(`${__dirname}/..`);
+
 module.exports = {
   entry: null, // set programatically 
   mode: 'development',
@@ -5,8 +9,8 @@ module.exports = {
       fs: 'empty'
   },
   output: {
-    path: null, // set programatically 
-    filename: 'test-bundle.js'
+    filename: '[name].js',
+    path: path.resolve(`${WORKSPACE_ROOT}/dist`),
   },
   module: {
     rules: [
