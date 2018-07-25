@@ -27,7 +27,7 @@
 
       function addScript(moduleName) {
         const script = document.createElement("script");
-        const url = `http://localhost:9090/${moduleName}/${moduleName}.bundle.js`;
+        const url = `http://localhost:9090/${moduleName}/${moduleName}.js`;
         script.setAttribute("src", url);
 
         document.body.appendChild(script);
@@ -36,7 +36,6 @@
       }
 
       const promises = [];
-      promises.push(addScript('vendors'));
 
       for (const moduleName of moduleNames.split(',')) {
         promises.push(addScript(moduleName));

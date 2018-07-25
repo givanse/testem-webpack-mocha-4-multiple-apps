@@ -7,10 +7,11 @@ module.exports = {
   entry: null, // set programatically 
   mode: 'development',
   node: {
-      fs: 'empty'
+    fs: 'empty'
   },
   output: {
-    filename: '[name]/[name].bundle.js',
+    filename: '[name]/[name].js',
+    chunkFilename: '[name]/[name].js',
     path: WORKSPACE_ROOT,
   },
   module: {
@@ -21,22 +22,18 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: [
+              '@babel/preset-env',
+            ],
+            plugins: [
+              '@babel/syntax-dynamic-import',
+              '@babel/plugin-transform-runtime',
+              '@babel/plugin-transform-async-to-generator',
+            ]
           }
         }
       }
     ]
-  },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      },
-    },
   },
   /*plugins: [
     new BundleAnalyzerPlugin()

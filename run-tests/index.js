@@ -5,7 +5,7 @@ const getTestemConfig = require('./get-testem-config');
 async function start(moduleNames) {
   const bundlesURLs = await webpackServeStart(moduleNames);
 
-  const testemConfig = getTestemConfig(moduleNames, bundlesURLs);
+  const testemConfig = getTestemConfig(bundlesURLs);
 
   return new Promise(function(resolve) {
     console.log(`Testem CWD: \`${testemConfig.cwd}\``);

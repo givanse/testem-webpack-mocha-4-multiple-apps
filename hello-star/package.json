@@ -13,5 +13,6 @@
   "license": "MIT",
   "dependencies": {
     "lodash.capitalize": "3.0.0"
-  }
+  },
+  "sideEffects": false
 }

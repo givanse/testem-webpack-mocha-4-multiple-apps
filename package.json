@@ -10,7 +10,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node run-tests"
+    "test": "node run-tests",
+    "build": "node run-tests/build"
   },
   "author": "givanse",
   "license": "MIT",
